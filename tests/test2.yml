@@ -1,0 +1,6 @@
+---
+- hosts: luna
+  become: True
+  roles:
+  - role: bvansomeren.jail-setup
+    jail_default_interface: "vtnet1"

@@ -1,0 +1,7 @@
+---
+
+- hosts: luna
+  become: True
+  become_user: root
+  roles:
+  - role: bvansomeren.jail-setup

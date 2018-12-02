@@ -1,0 +1,32 @@
+---
+# defaults file for bvansomeren.jail-setup
+
+jail_location:             "/usr/local/jail"
+jail_dataset:              "zroot/jail"
+
+jail_backup_conf:          yes
+
+jail_release:              "11.2-RELEASE"
+
+jail_default_install:
+- file: "base.txz"
+  creates: "bin/"
+
+jail_parallel_start: True
+
+freebsd_downloadsite: "http://ftp.freebsd.org/pub/FreeBSD/releases/amd64"
+jail_template_download: "/tmp/jails-freebsd-releases"
+jail_default_interface: "{{ hostvars[inventory_hostname].ansible_default_ipv4.device }}"
+
+jail_default_opts:
+- name: exec.start 
+  option: "/bin/sh /etc/rc"
+- name: exec.stop
+  option: "/bin/sh /etc/rc.shutdown"
+- name: path
+  option: "{{ jail_location }}/$name"
+- name: exec.clean
+- name: mount.devfs
+- name: persist
+- name: interface
+  option: "{{ jail_default_interface }}"
