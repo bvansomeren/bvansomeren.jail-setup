@@ -12,12 +12,15 @@
     dest: "{{ jail_template_download }}/{{ item.file }}"
   with_items: "{{ jail_default_install }}"
 
-- name: ensure jails dataset
-  zfs:
-    name: "{{ jail_dataset }}"
-    state: present
-    extra_zfs_properties:
-      mountpoint: "{{ jail_location }}"
+- name: setup dataset
+  include_role:
+    name: bvansomeren.zfs
+    tasks_from: dataset
+  vars:
+    zfs_dataset:
+      name: "{{ jail_dataset }}"
+      extra_zfs_properties:
+        mountpoint: "{{ jail_location }}"
 
 - name: ensure jail.conf contains global settings
   blockinfile:
