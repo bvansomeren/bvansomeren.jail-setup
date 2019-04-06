@@ -30,3 +30,15 @@ jail_default_opts:
 - name: persist
 - name: interface
   option: "{{ jail_default_interface }}"
+- name: exec.prestart
+  option: "logger trying to start jail $name..."
+- name: exec.poststart
+  option: "logger jail $name has started"
+- name: exec.prestop
+  option: "logger shutting down jail $name"
+- name: exec.poststop
+  option: "logger jail $name has shut down"
+- name: exec.timeout
+  option: "{{ jail_exec_timeout | default('90') }}"
+- name: stop.timeout
+  option: "{{ jail_stop_timeout | default('30') }}"
